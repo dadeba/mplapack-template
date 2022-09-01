@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022
+ * Copyright (c) 2008-2022
  *      Nakata, Maho
  *      All rights reserved.
  *
@@ -26,6 +26,48 @@
  *
  */
 
-#include "mpblas/Raxpy.hpp"
-#include "mpblas/Rgemm.hpp"
-#include "mpblas/Cgemm.hpp"
+#include <mpblas.h>
+
+REAL Rasum(INTEGER const n, REAL *dx, INTEGER const incx) {
+    REAL return_value = 0.0;
+    //
+    return_value = 0.0;
+    REAL dtemp = 0.0;
+    if (n <= 0 || incx <= 0) {
+        return return_value;
+    }
+    INTEGER m = 0;
+    INTEGER i = 0;
+    INTEGER mp1 = 0;
+    INTEGER nincx = 0;
+    if (incx == 1) {
+        //        code for increment equal to 1
+        //
+        //        clean-up loop
+        //
+        m = mod(n, 6);
+        if (m != 0) {
+            for (i = 1; i <= m; i = i + 1) {
+                dtemp += abs(dx[i - 1]);
+            }
+            if (n < 6) {
+                return_value = dtemp;
+                return return_value;
+            }
+        }
+        mp1 = m + 1;
+        for (i = mp1; i <= n; i = i + 6) {
+            dtemp += abs(dx[i - 1]) + abs(dx[(i + 1) - 1]) + abs(dx[(i + 2) - 1]) + abs(dx[(i + 3) - 1]) + abs(dx[(i + 4) - 1]) + abs(dx[(i + 5) - 1]);
+        }
+    } else {
+        //
+        //        code for increment not equal to 1
+        //
+        nincx = n * incx;
+        for (i = 1; i <= nincx; i = i + incx) {
+            dtemp += abs(dx[i - 1]);
+        }
+    }
+    return_value = dtemp;
+    return return_value;
+}

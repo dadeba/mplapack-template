@@ -30,7 +30,12 @@ Based on http://www.netlib.org/blas/xerbla.f
 Mxerbla is an error handler for the Mplapack routines.
 */
 
+#ifndef ___MPBLAS_MXERBLA_H___
+#define ___MPBLAS_MXERBLA_H___
+
 void Mxerbla(const char *srname, int info) {
     fprintf(stderr, " ** On entry to %s parameter number %2d had an illegal value\n", srname, info);
     exit(info);
 }
+
+#endif

@@ -31,6 +31,9 @@ Based on http://www.netlib.org/blas/lsame.f
 Mlsame returns 1 if CA is the same letter as CB regardless of case.
 */
 
+#ifndef ___MPBLAS_MLSAME_H___
+#define ___MPBLAS_MLSAME_H___
+
 #include <ctype.h>
 
 bool Mlsame(const char *a, const char *b) {
@@ -38,3 +41,5 @@ bool Mlsame(const char *a, const char *b) {
         return true;
     return false;
 }
+
+#endif
