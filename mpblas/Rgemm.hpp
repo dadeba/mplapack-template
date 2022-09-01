@@ -32,6 +32,8 @@
 namespace mpblas {
 template <typename REAL> void Rgemm(const char *transa, const char *transb, int64_t const m, int64_t const n, int64_t const k, REAL const &alpha, REAL *a, int64_t const lda, REAL *b, int64_t const ldb, REAL const &beta, REAL *c, int64_t const ldc) {
     //
+    //     Test the input parameters.
+    //
     bool nota = Mlsame(transa, "N");
     bool notb = Mlsame(transb, "N");
     int64_t nrowa = 0;
@@ -187,7 +189,7 @@ template <typename REAL> void Rgemm(const char *transa, const char *transb, int6
         }
     }
     //
-    //     End of Rgemm .
+    //     End of Rgemm.
     //
 }
 } // namespace mpblas
