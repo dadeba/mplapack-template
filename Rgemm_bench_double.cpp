@@ -145,7 +145,7 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < LOOP; j++) {
             clock_gettime(CLOCK_REALTIME, &ts);
             t1 = ts.tv_nsec;
-            mpblas::Rgemm(&transa, &transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc);
+            mpblas::Rgemm<double>(&transa, &transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc);
             clock_gettime(CLOCK_REALTIME, &ts);
             t2 = ts.tv_nsec;
             elapsedtime_l = elapsedtime_l + t2 - t1;
